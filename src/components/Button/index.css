@@ -1,0 +1,30 @@
+.button{
+  width: 100px;
+  height: 60px;
+  line-height: 58px;
+  text-align: center;
+  font-size: 24px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  margin-right: -1px;
+  margin-bottom: -1px;
+  user-select: none;
+  transition: 100ms;
+  background-color: white;
+}
+
+.button:hover{
+  transform: scale(1.04)
+}
+.button:active{
+  transform: scale(0.97)
+}
+.func{
+  color: #ED6C46
+}
+.character{
+  color: #888888
+}
+.special{
+  color:#ED6C46
+}
