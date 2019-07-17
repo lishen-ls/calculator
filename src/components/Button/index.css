@@ -1,5 +1,5 @@
-.button{
-  width: 100px;
+.button {
+  width: 25%;
   height: 60px;
   line-height: 58px;
   text-align: center;
@@ -13,18 +13,18 @@
   background-color: white;
 }
 
-.button:hover{
-  transform: scale(1.04)
+.button:hover {
+  transform: scale(1.04);
 }
-.button:active{
-  transform: scale(0.97)
+.button:active {
+  transform: scale(0.97);
 }
-.func{
-  color: #ED6C46
+.func {
+  color: #ed6c46;
 }
-.character{
-  color: #888888
+.character {
+  color: #888888;
 }
-.special{
-  color:#ED6C46
+.special {
+  color: #ed6c46;
 }
