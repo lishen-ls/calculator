@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-function Button({clickHandle,value,type}) {
+function Button({clickHandle,value,type=''}) {
   return (
     <div className={"button "+type}>
       {value}
