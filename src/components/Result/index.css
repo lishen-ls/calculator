@@ -1,25 +1,38 @@
-.result-box{
-  width: 100%;
+.display-box {
+  width: calc(100% - 1px);
   height: 200px;
   border: 1px solid rgba(0, 0, 0, 0.05);
   margin-bottom: -1px;
+  background-color: #fafafa;
 }
-.computing-outside{
+.computing-outside {
   height: 150px;
   position: relative;
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: none;
 }
-.computing-inside{
+.computing {
   width: calc(100% - 10px);
-  /* position: absolute; */
   padding: 5px;
   bottom: 0;
+  color:#404040;
   text-align: right;
   font-size: 24px;
   line-height: 30px;
+  font-weight: 300;
+  overflow: scroll;
+  height: 140px;
 }
-.result-inside{
+.result-outside {
   height: 50px;
+}
+.result-inside {
+  padding: 5px;
+  width: calc(100% - 10px);
+  text-align: right;
+  font-size: 36px;
+  line-height: 40px;
+  word-wrap: break-word;
+  transition: 200ms;
 }

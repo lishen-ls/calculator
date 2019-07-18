@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../Button";
+import Button from "../../containers/Button";
 import "./index.css";
 function Wrapper() {
   return (

@@ -1,12 +1,43 @@
 import React from "react";
 import "./index.css";
-export default function Result(){
-  return(
-    <div className="result-box">
-      <div className="computing-outside">
-        <div className="computing-inside">asdasdasdasdasdasdasdas  asdasdasdasdasdasdasdas asdasdasdasdasdasdasdas asdasdasdasdasdasdasdas asdasdasdasdasdasdasdas asdasdasdasdasdasdasdas asdasdasdasdasdasdasdas asdasdasdasdasdasdasdas asdasdasdasdasdasdasdas asdasdasdas</div>
+export default class Result extends React.Component {
+  render() {
+    let { value, result } = this.props;
+    return (
+      <div className="display-box">
+        <div
+          className="computing"
+          ref={ref => {
+            if (ref) {
+              ref.scrollTo(0, ref.scrollHeight);
+            }
+          }}
+        >
+          {value.join(" ")}
+        </div>
+        <div className="result-outside">
+          <div
+            ref={ref => {
+              if (ref) {
+                let inHeight = ref.offsetHeight;
+                console.dir(ref);
+                if (String(result).length >= 14 && inHeight > 50) {
+                  ref.setAttribute(
+                    "style",
+                    `font-size:${(50 / inHeight) * 36}px;`
+                  );
+                }
+                if (String(result).length < 14) {
+                  ref.removeAttribute("style");
+                }
+              }
+            }}
+            className="result-inside"
+          >
+            {result}
+          </div>
+        </div>
       </div>
-      <div className="result-inside"></div>
-    </div>
-  )
+    );
+  }
 }
