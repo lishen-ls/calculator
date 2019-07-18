@@ -20,7 +20,6 @@ export default class Result extends React.Component {
             ref={ref => {
               if (ref) {
                 let inHeight = ref.offsetHeight;
-                console.dir(ref);
                 if (String(result).length >= 14 && inHeight > 50) {
                   ref.setAttribute(
                     "style",
