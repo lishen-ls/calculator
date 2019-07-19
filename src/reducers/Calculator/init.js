@@ -1,15 +1,14 @@
 export let state = {
   value: ["0"],
-  cache: [],
   result: ""
 };
 
 export function character(state, action) {
   let newValue;
-  if (state.cache.length === 0) {
+  if (state.result === "" || state.value.length === 1) {
     newValue = [...state.value];
   } else {
-    newValue = [...state.cache];
+    newValue = [state.result.toString()];
   }
   if (
     action.character === "%" &&
@@ -20,11 +19,11 @@ export function character(state, action) {
     ).toString();
     return {
       ...state,
-      cache:[],
       value: newValue
     };
   }
   if (isNaN(Number(newValue[newValue.length - 1]))) {
+    newValue[newValue.length - 1] = action.character;
     return {
       ...state,
       value: newValue
@@ -32,16 +31,15 @@ export function character(state, action) {
   }
   return {
     ...state,
-    cache:[],
     value: newValue.concat(action.character)
   };
 }
 export function num(state, action) {
   let newValue;
-  if (state.cache.length === 0) {
-    newValue = [...state.value];
-  } else {
+  if (state.result !== "" && state.value.length > 2) {
     newValue = ["0"];
+  } else {
+    newValue = [...state.value];
   }
   let overNum = newValue[newValue.length - 1];
   if (overNum.length >= 20) {
@@ -56,9 +54,8 @@ export function num(state, action) {
     newValue[newValue.length - 1] += action.num;
   }
   return {
-    ...state,
-    cache: [],
-    value: newValue
+    value: newValue,
+    result: ""
   };
 }
 export function point(state) {
@@ -77,7 +74,6 @@ export function point(state) {
 export function AC() {
   return {
     value: ["0"],
-    cache: [],
     result: ""
   };
 }
@@ -99,12 +95,10 @@ export function DEL(state) {
 }
 export function inverse(state) {
   let newValue;
-  let cache = [...state.cache];
-  if (cache.length === 0) {
+  if (state.result === "" || state.value.length >= 2) {
     newValue = [...state.value];
   } else {
-    newValue = [...cache];
-    cache[0] = -cache[0].toString();
+    newValue = [state.result];
   }
   let overNum = newValue[newValue.length - 1];
   if (isNaN(Number(overNum))) {
@@ -113,12 +107,11 @@ export function inverse(state) {
   overNum = (-overNum).toString();
   newValue[newValue.length - 1] = overNum;
   return {
-    ...state,
-    cache:[],
-    value: newValue
+    value: newValue,
+    result: ""
   };
 }
-export function result({ value, cache, result }) {
+export function result({ value, result }) {
   let output = [];
   let characterStack = (function() {
     let stack = [];
@@ -150,10 +143,8 @@ export function result({ value, cache, result }) {
         return stack.pop();
       },
       calc(type) {
-        let first = Number(stack[stack.length - 2]);
-        let second = Number(stack[stack.length - 1]);
-        this.pop();
-        this.pop();
+        let second = Number(this.pop());
+        let first = Number(this.pop());
         switch (type) {
           case "+":
             return first + second;
@@ -171,7 +162,7 @@ export function result({ value, cache, result }) {
       }
     };
   })();
-  let newValue = value;
+  let newValue = [...value];
   let level = {
     "+": 1,
     "-": 1,
@@ -206,10 +197,8 @@ export function result({ value, cache, result }) {
     }
   }
   result = calcStack.result();
-  cache.push(result);
   return {
-    value,
-    cache,
+    value: newValue,
     result
   };
 }
