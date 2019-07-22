@@ -127,9 +127,6 @@ export function result({ value, result }) {
       },
       top() {
         return stack[stack.length - 1];
-      },
-      length() {
-        return stack.length;
       }
     };
   })();
@@ -139,21 +136,22 @@ export function result({ value, result }) {
       push(item) {
         stack.push(item);
       },
-      pop() {
-        return stack.pop();
-      },
       calc(type) {
-        let second = Number(this.pop());
-        let first = Number(this.pop());
+        let second = Number(stack.pop());
+        let first = Number(stack.pop());
         switch (type) {
           case "+":
-            return first + second;
+            stack.push(first + second);
+            break;
           case "-":
-            return first - second;
+            stack.push(first - second);
+            break;
           case "*":
-            return first * second;
+            stack.push(first * second);
+            break;
           case "/":
-            return first / second;
+            stack.push(first / second);
+            break;
           default:
         }
       },
@@ -177,7 +175,7 @@ export function result({ value, result }) {
     if (!isNaN(Number(item))) {
       output.push(item);
     } else {
-      if (characterStack.length() === 0) {
+      if (!characterStack.top()) {
         characterStack.push(item);
       } else {
         while (level[item] <= level[characterStack.top()]) {
@@ -193,7 +191,7 @@ export function result({ value, result }) {
     if (!isNaN(Number(item))) {
       calcStack.push(item);
     } else {
-      calcStack.push(calcStack.calc(item));
+      calcStack.calc(item);
     }
   }
   result = calcStack.result();
