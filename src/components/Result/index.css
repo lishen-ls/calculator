@@ -24,6 +24,9 @@
   overflow: scroll;
   height: 140px;
 }
+.computing::-webkit-scrollbar {
+  display:none
+}
 .result-outside {
   height: 50px;
 }
